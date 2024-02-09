@@ -7,6 +7,7 @@ import 'package:ember_quest/managers/segment_manager.dart';
 import 'package:ember_quest/objects/ground_block.dart';
 import 'package:ember_quest/objects/platform_block.dart';
 import 'package:ember_quest/objects/star.dart';
+import 'package:ember_quest/overlays/hud.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
@@ -19,6 +20,8 @@ class EmberQuest extends FlameGame
   double objectSpeed = 0.0;
   late double lastBlockXPosition = 0.0;
   late UniqueKey lastBlockKey;
+  int starsCollected = 0;
+  int health = 3;
 
   @override
   Color backgroundColor() {
@@ -36,7 +39,7 @@ class EmberQuest extends FlameGame
 
   void initializeGame() {
     final segmentToLoad = (size.x / 640).ceil();
-
+    camera.viewport.add(Hud());
     segmentToLoad.clamp(0, segments.length);
     for (var i = 0; i < segmentToLoad; i++) {
       loadGameSegments(i, (640 * i).toDouble());
