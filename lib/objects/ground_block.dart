@@ -36,6 +36,9 @@ class GroundBlock extends SpriteComponent with HasGameReference<EmberQuest> {
 
   @override
   void update(double dt) {
+    if (game.health <= 0) {
+      removeFromParent();
+    }
     velocity.x = game.objectSpeed;
     position += velocity * dt;
     if (position.x < -size.x) {
